@@ -9,15 +9,23 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "user_id")
-    private int userId;
-    @Column(name = "post_id")
-    private int postId;
-    @Column(name = "reply_id")
-    private int replyId;
     @Column(nullable = false)
     private String comment;
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "id"
+    )
+    private User user;
+    @ManyToOne
+    @JoinColumn(
+            name = "post_id",
+            referencedColumnName = "id"
+    )
+    private Post post;
+
     public Comment(){
 
     }
@@ -33,31 +41,6 @@ public class Comment {
     public void setId(int id) {
         this.id = id;
     }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
-    public int getReplyId() {
-        return replyId;
-    }
-
-    public void setReplyId(int replyId) {
-        this.replyId = replyId;
-    }
-
     public String getComment() {
         return comment;
     }
@@ -78,9 +61,6 @@ public class Comment {
     public String toString() {
         return "Comment{" +
                 "id=" + id +
-                ", userId=" + userId +
-                ", postId=" + postId +
-                ", replyId=" + replyId +
                 ", comment='" + comment + '\'' +
                 ", createdAt=" + createdAt +
                 '}';

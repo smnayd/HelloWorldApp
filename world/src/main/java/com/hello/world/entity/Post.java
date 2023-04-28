@@ -2,6 +2,7 @@ package com.hello.world.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -9,14 +10,24 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "user_id")
-    private int userId;
     @Column(length = 10,nullable = false)
     private String type;
     @Column(nullable = false)
     private String file;
     private LocalDateTime createdAt;
+    @ManyToOne
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "id"
+    )
+    private User user;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private List<Comment> comments;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<Like> likes;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<Share>shares;
     public Post(){
 
     }
@@ -33,13 +44,6 @@ public class Post {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public String getType() {
         return type;
@@ -69,7 +73,6 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", userId=" + userId +
                 ", type='" + type + '\'' +
                 ", file='" + file + '\'' +
                 ", createdAt=" + createdAt +

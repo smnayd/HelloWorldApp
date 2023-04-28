@@ -3,6 +3,7 @@ package com.hello.world.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -21,10 +22,40 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private List<Post> posts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "followerUser", cascade = CascadeType.REMOVE)
+    private List<Follow> followers;
+    @OneToMany(mappedBy = "followingUser", cascade = CascadeType.REMOVE)
+    private List<Follow> followings;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Like> likes;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Share> shares;
+
     public User(){
 
     }
-    public User(String username, String email, String password,String bio, byte[] photo){
+    public User(String username, String email, String password){
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.createdAt = LocalDateTime.now();
+    }
+    public User(String username, String email, String password,String bio){
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.bio = bio;
+        this.createdAt = LocalDateTime.now();
+    }
+    public User(String username, String email, String password,String bio,byte[] photo){
         this.username = username;
         this.email = email;
         this.password = password;

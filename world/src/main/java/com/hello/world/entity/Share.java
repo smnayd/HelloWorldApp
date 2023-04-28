@@ -7,12 +7,21 @@ public class Share {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "user_id")
-    private int userId;
-    @Column(name = "post_id")
-    private int postId;
     private String url;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "id"
+    )
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = "post_id",
+            referencedColumnName = "id"
+    )
+    private Post post;
     public Share(){
 
     }
@@ -27,23 +36,6 @@ public class Share {
     public void setId(int id) {
         this.id = id;
     }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -56,8 +48,6 @@ public class Share {
     public String toString() {
         return "Share{" +
                 "id=" + id +
-                ", userId=" + userId +
-                ", postId=" + postId +
                 ", url='" + url + '\'' +
                 '}';
     }

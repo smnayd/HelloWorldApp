@@ -9,11 +9,21 @@ public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "user_id")
-    private int userId;
-    @Column(name = "post_id")
-    private int postId;
     private LocalDateTime createdAt;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "id"
+    )
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "post_id",
+            referencedColumnName = "id"
+    )
+    private Post post;
 
     public int getId() {
         return id;
@@ -22,27 +32,6 @@ public class Like {
     public void setId(int id) {
         this.id = id;
     }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
@@ -51,8 +40,6 @@ public class Like {
     public String toString() {
         return "Like{" +
                 "id=" + id +
-                ", userId=" + userId +
-                ", postId=" + postId +
                 ", createdAt=" + createdAt +
                 '}';
     }
