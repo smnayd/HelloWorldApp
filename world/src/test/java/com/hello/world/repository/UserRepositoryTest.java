@@ -38,10 +38,10 @@ class UserRepositoryTest {
             fail("There is no user with this id.");
     }
     @Test
-    public void getUserById(){
+    public void getById(){
         boolean check = userRepository.existsById(598);
         if(check == true){
-            User user = userRepository.getUserById(598);
+            User user = userRepository.getById(598);
             System.out.println(user);
         }
         else{

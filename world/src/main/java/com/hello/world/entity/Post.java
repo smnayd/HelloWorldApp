@@ -15,9 +15,11 @@ public class Post {
     @Column(nullable = false)
     private String file;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
-            name = "user_id",
+            name = "userId",
             referencedColumnName = "id"
     )
     private User user;
@@ -31,7 +33,8 @@ public class Post {
     public Post(){
 
     }
-    public Post(String type, String file){
+    public Post(User user, String type, String file){
+        this.user = user;
         this.type = type;
         this.file = file;
         this.createdAt = LocalDateTime.now();
@@ -69,6 +72,14 @@ public class Post {
         this.createdAt = createdAt;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -76,6 +87,7 @@ public class Post {
                 ", type='" + type + '\'' +
                 ", file='" + file + '\'' +
                 ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

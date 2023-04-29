@@ -11,13 +11,14 @@ import javax.transaction.Transactional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
+
     //Create
     User save(User user);
 
-    //checking user by id
+    //Checking user by id
     boolean existsById(int id);
 
-    //checking user by username
+    //Checking user by username
     boolean existsByUsername(String username);
 
     //Update
@@ -34,7 +35,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     //Get user by Id
     @Query("select u from User u where u.id = :id")
-    User getUserById(@Param("id") int id);
+    User getById(@Param("id") int id);
 
     //Get user by username
     User findByUsername(String username);

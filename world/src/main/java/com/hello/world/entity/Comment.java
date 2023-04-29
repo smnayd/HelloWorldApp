@@ -12,6 +12,7 @@ public class Comment {
     @Column(nullable = false)
     private String comment;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -29,7 +30,9 @@ public class Comment {
     public Comment(){
 
     }
-    public Comment(String comment){
+    public Comment(User user, Post post,String comment){
+        this.user = user;
+        this.post = post;
         this.comment = comment;
         this.createdAt = LocalDateTime.now();
     }
@@ -57,12 +60,21 @@ public class Comment {
         this.createdAt = createdAt;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
                 ", comment='" + comment + '\'' +
                 ", createdAt=" + createdAt +
+                ", updatedAt=" +updatedAt +
                 '}';
     }
 }
