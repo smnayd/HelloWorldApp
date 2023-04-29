@@ -28,9 +28,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "followerUser", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "followerUser", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Follow> followers;
-    @OneToMany(mappedBy = "followingUser", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "followingUser", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Follow> followings;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)

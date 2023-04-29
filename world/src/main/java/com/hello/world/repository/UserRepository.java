@@ -8,21 +8,35 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
-    //Create a user
-    public User save(User user);
+    //Create
+    User save(User user);
 
-    //Update a user
+    //checking user by id
+    boolean existsById(int id);
+
+    //checking user by username
+    boolean existsByUsername(String username);
+
+    //Update
     @Modifying
     @Transactional
     @Query("update User u set u.username = :username where u.id = :id")
-    public void updateUser(@Param("username") String username, @Param("id") int id);
+    void updateById(@Param("username") String username, @Param("id") int id);
 
+    //Delete
+    @Modifying
+    @Transactional
+    @Query("delete from User u where u.id = :id")
+    void deleteById(@Param("id") int id);
 
+    //Get user by Id
+    @Query("select u from User u where u.id = :id")
+    User getUserById(@Param("id") int id);
 
-    public List<User> findByUsername(String username);
+    //Get user by username
+    User findByUsername(String username);
 
 }
