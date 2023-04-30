@@ -9,15 +9,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public interface LikeRepository extends JpaRepository<Like,Integer> {
     //Create
     Like save(Like like);
-
-    //Checking
-    boolean existsById(int id);
 
     //Update
     @Modifying
@@ -28,10 +27,14 @@ public interface LikeRepository extends JpaRepository<Like,Integer> {
     //Delete
     @Modifying
     @Transactional
-    @Query("delete from Like l where l.id = :id")
-    void deleteById(@Param("id") int id);
+    @Query("update Like l set l.isDeleted=:isDeleted where l.id = :id")
+    void deleteById(@Param("isDeleted")boolean isDeleted,@Param("id") int id);
 
     //Get by post id
     @Query("select l from Like l where l.post.id = :id")
     List<Like> getByPostId(@Param("id") int id);
+
+    //Get the post which has most likes within last 3 days.
+    @Query("select l.post from Like l where l.createdAt >= :createdAt group by l.post.id order by count(l.id) desc")
+    List<Object[]> getLikeByCreatedAt(@Param("createdAt")LocalDateTime time);
 }

@@ -16,6 +16,7 @@ public class Post {
     private String file;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -26,7 +27,7 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Like> likes;
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Share>shares;
@@ -80,6 +81,14 @@ public class Post {
         this.updatedAt = updatedAt;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -88,6 +97,7 @@ public class Post {
                 ", file='" + file + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

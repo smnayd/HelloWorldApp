@@ -27,10 +27,9 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
     //Delete
     @Modifying
     @Transactional
-    @Query("delete from Comment c where c.id = :id ")
-    void deleteById(@Param("id")int id);
+    @Query("update Comment c set c.isDeleted=:isDeleted where c.id = :id ")
+    void deleteById(@Param("isDeleted") boolean isDeleted, @Param("id")int id);
 
-    boolean existsById(int id);
 
     //Get by post id
     @Query("select c from Comment c where c.post.id = :id")

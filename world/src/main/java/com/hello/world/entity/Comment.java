@@ -13,6 +13,7 @@ public class Comment {
     private String comment;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -68,6 +69,14 @@ public class Comment {
         this.updatedAt = updatedAt;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
@@ -75,6 +84,7 @@ public class Comment {
                 ", comment='" + comment + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" +updatedAt +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

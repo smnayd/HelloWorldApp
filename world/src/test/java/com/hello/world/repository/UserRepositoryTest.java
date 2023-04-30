@@ -30,9 +30,9 @@ class UserRepositoryTest {
 
     @Test
     public void deleteById(){
-        boolean check = userRepository.existsById(606);
+        boolean check = userRepository.existsById(1);
         if(check == true){
-            userRepository.deleteById(606);
+            userRepository.deleteById(true,1);
         }
         else
             fail("There is no user with this id.");

@@ -43,9 +43,9 @@ class CommentRepositoryTest {
     }
     @Test
     public void deleteById(){
-        boolean check = commentRepository.existsById(1);
+        boolean check = commentRepository.existsById(2);
         if(check == true){
-            commentRepository.deleteById(1);
+            commentRepository.deleteById(true,2);
         }
         else
             fail("There is no comment with this id");

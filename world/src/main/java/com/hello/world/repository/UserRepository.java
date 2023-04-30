@@ -15,9 +15,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     //Create
     User save(User user);
 
-    //Checking user by id
-    boolean existsById(int id);
-
     //Checking user by username
     boolean existsByUsername(String username);
 
@@ -30,8 +27,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     //Delete
     @Modifying
     @Transactional
-    @Query("delete from User u where u.id = :id")
-    void deleteById(@Param("id") int id);
+    @Query("update User u set u.isDeleted = :isDeleted where u.id = :id")
+    void deleteById(@Param("isDeleted") boolean isDeleted,@Param("id") int id);
 
     //Get user by Id
     @Query("select u from User u where u.id = :id")

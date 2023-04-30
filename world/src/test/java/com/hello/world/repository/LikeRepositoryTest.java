@@ -7,7 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,9 +46,9 @@ class LikeRepositoryTest {
     }
     @Test
     public void deleteById(){
-        boolean check = likeRepository.existsById(1);
+        boolean check = likeRepository.existsById(2);
         if(check == true){
-            likeRepository.deleteById(1);
+            likeRepository.deleteById(true,2);
         }
         else
             fail("There is no like with this id");
@@ -58,6 +62,14 @@ class LikeRepositoryTest {
         }
         else
             fail("There is no post");
+    }
+    @Test
+    public void getLikeByCreatedAt(){
+        LocalDateTime time = LocalDateTime.now().minusDays(3);
+        List<Object[]> posts = likeRepository.getLikeByCreatedAt(time);
+        Post post = (Post)posts.get(0)[0];
+        int likeCount = (int)posts.get(0)[1];
+        System.out.println(post);
     }
 
 }

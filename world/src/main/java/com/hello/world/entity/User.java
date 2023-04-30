@@ -19,6 +19,7 @@ public class User {
     private String password;
     private String bio;
     private byte[]  photo;
+    private boolean isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -127,6 +128,14 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -138,6 +147,7 @@ public class User {
                 ", photo=" + photo +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

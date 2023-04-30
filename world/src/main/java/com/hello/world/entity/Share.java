@@ -8,6 +8,7 @@ public class Share {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String url;
+    private boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -25,7 +26,9 @@ public class Share {
     public Share(){
 
     }
-    public Share(String url){
+    public Share(User user, Post post,String url){
+        this.user = user;
+        this.post = post;
         this.url = url;
     }
 
@@ -44,11 +47,20 @@ public class Share {
         this.url = url;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Share{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

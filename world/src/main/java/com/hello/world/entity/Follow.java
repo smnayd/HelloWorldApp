@@ -1,6 +1,7 @@
 package com.hello.world.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "follows",uniqueConstraints = @UniqueConstraint(columnNames = { "follower_user_id", "following_user_id" }))
@@ -8,6 +9,9 @@ public class Follow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private boolean isDeleted;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "follower_user_id",
@@ -21,6 +25,15 @@ public class Follow {
     )
     private User followingUser;
 
+    public Follow(){
+
+    }
+    public Follow(User followerUser, User followingUser){
+        this.followerUser = followerUser;
+        this.followingUser = followingUser;
+        this.createdAt = LocalDateTime.now();
+    }
+
     public int getId() {
         return id;
     }
@@ -28,10 +41,38 @@ public class Follow {
     public void setId(int id) {
         this.id = id;
     }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Follow{" +
                 "id=" + id +
+                ",createdAt= " + createdAt +
+                ",updatedAt= " + updatedAt +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

@@ -35,9 +35,9 @@ class PostRepositoryTest {
     }
     @Test
     public void deleteById(){
-        boolean check = postRepository.existsById(5);
+        boolean check = postRepository.existsById(4);
         if(check == true){
-            postRepository.deleteById(5);
+            postRepository.deleteById(true,4);
         }
         else
             fail("There is no post with this id.");

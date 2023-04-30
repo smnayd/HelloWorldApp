@@ -11,6 +11,7 @@ public class Like {
     private int id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -54,12 +55,21 @@ public class Like {
         this.updatedAt = updatedAt;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Like{" +
                 "id=" + id +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }
