@@ -10,6 +10,7 @@ public class Like {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -25,6 +26,15 @@ public class Like {
     )
     private Post post;
 
+    public Like(){
+
+    }
+    public Like(User user, Post post){
+        this.user = user;
+        this.post = post;
+        this.createdAt = LocalDateTime.now();
+    }
+
     public int getId() {
         return id;
     }
@@ -36,11 +46,20 @@ public class Like {
         this.createdAt = createdAt;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public String toString() {
         return "Like{" +
                 "id=" + id +
                 ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

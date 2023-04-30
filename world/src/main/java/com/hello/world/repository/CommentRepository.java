@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment,Integer> {
@@ -30,4 +31,8 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
     void deleteById(@Param("id")int id);
 
     boolean existsById(int id);
+
+    //Get by post id
+    @Query("select c from Comment c where c.post.id = :id")
+    List<Comment> getByPostId(@Param("id") int id);
 }

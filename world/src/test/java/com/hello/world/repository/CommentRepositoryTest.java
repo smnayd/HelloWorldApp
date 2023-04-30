@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -47,5 +49,15 @@ class CommentRepositoryTest {
         }
         else
             fail("There is no comment with this id");
+    }
+    @Test
+    public void getByPostId(){
+        boolean check = postRepository.existsById(4);
+        if(check == true){
+            List<Comment> comments = commentRepository.getByPostId(4);
+            System.out.println("comments: " + comments);
+        }
+        else
+            fail("There is no post");
     }
 }
