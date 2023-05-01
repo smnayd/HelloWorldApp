@@ -58,7 +58,7 @@ class LikeRepositoryTest {
         boolean check = postRepository.existsById(4);
         if(check == true){
             List<Like> likes = likeRepository.getByPostId(4);
-            System.out.println("likes: " + likes);
+            System.out.println("likes: " + likes.toString());
         }
         else
             fail("There is no post");
@@ -66,10 +66,8 @@ class LikeRepositoryTest {
     @Test
     public void getLikeByCreatedAt(){
         LocalDateTime time = LocalDateTime.now().minusDays(3);
-        List<Object[]> posts = likeRepository.getLikeByCreatedAt(time);
-        Post post = (Post)posts.get(0)[0];
-        int likeCount = (int)posts.get(0)[1];
-        System.out.println(post);
+        List<Post> likeList = (likeRepository.getLikeByCreatedAt(time));
+        System.out.println(likeList.get(0));
     }
 
 }

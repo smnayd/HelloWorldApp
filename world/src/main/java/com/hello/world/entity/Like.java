@@ -20,7 +20,7 @@ public class Like {
     )
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "post_id",
             referencedColumnName = "id"

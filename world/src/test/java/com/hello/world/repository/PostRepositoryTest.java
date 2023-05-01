@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -41,6 +43,11 @@ class PostRepositoryTest {
         }
         else
             fail("There is no post with this id.");
+    }
+    @Test
+    public void getPostByCommentsAndUsername(){
+        List<Post> postList = postRepository.getPostByCommentsAndUsername();
+        System.out.println(postList.get(0).toString());
     }
 
 }

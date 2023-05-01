@@ -26,9 +26,6 @@ public interface FollowRepository extends JpaRepository<Follow,Integer> {
     @Query("update Follow f set f.isDeleted=:isDeleted where f.id = :id")
     void deleteById(@Param("isDeleted")boolean isDeleted,@Param("id")int id);
 
-    //Checking
-    boolean existsById(int id);
-
     //Getting the follower count of a user by user id
     @Query("select count(f.id) from Follow f where f.followingUser.id =:followingId and f.followingUser.isDeleted=:isDeleted")
     int getByFollowingUser(@Param("followingId") int followingId, @Param("isDeleted")boolean isDeleted);

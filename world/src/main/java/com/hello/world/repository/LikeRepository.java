@@ -35,6 +35,6 @@ public interface LikeRepository extends JpaRepository<Like,Integer> {
     List<Like> getByPostId(@Param("id") int id);
 
     //Get the post which has most likes within last 3 days.
-    @Query("select l.post from Like l where l.createdAt >= :createdAt group by l.post.id order by count(l.id) desc")
-    List<Object[]> getLikeByCreatedAt(@Param("createdAt")LocalDateTime time);
+    @Query("select p from Like l join l.post p join p.user u where l.createdAt >= :createdAt group by p.id, u.id order by count(l.id) desc")
+    List<Post> getLikeByCreatedAt(@Param("createdAt")LocalDateTime time);
 }

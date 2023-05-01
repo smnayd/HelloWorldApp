@@ -1,8 +1,6 @@
 package com.hello.world.repository;
 
 import com.hello.world.entity.Comment;
-import com.hello.world.entity.Post;
-import com.hello.world.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,7 +27,6 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
     @Transactional
     @Query("update Comment c set c.isDeleted=:isDeleted where c.id = :id ")
     void deleteById(@Param("isDeleted") boolean isDeleted, @Param("id")int id);
-
 
     //Get by post id
     @Query("select c from Comment c where c.post.id = :id")
