@@ -1,5 +1,7 @@
 package com.hello.world.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,11 +27,14 @@ public class Post {
     )
     private User user;
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Like> likes;
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Share>shares;
     public Post(){
 
@@ -87,6 +92,38 @@ public class Post {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
+
+    public List<Share> getShares() {
+        return shares;
+    }
+
+    public void setShares(List<Share> shares) {
+        this.shares = shares;
     }
 
     @Override

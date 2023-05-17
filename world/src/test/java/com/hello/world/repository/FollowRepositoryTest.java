@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -17,41 +19,54 @@ class FollowRepositoryTest {
 
     @Test
     public void saveFollow(){
-        boolean followerCheck = userRepository.existsById(123);
-        boolean followingCheck = userRepository.existsById(34);
-        if((followerCheck == true) && (followingCheck == true)){
-            User follower = userRepository.getById(123);
-            User following = userRepository.getById(34);
-            Follow follow = new Follow(follower,following);
-            followRepository.save(follow);
-        }
-        else
-            fail("The user absent.");
+        User follower = new User("merve","merve@gmail.com","merve..","Hi i am merve");
+        userRepository.save(follower);
+        User following = new User("ceyda","ceyda@gmail.com","ceyda..","Hi i am ceyda");
+        userRepository.save(following);
+        Follow follow = new Follow(follower,following);
+        assertNotNull(follow.getFollowerUser());
+        assertNotNull(follow.getFollowingUser());
+        followRepository.save(follow);
     }
     @Test
     public void updateByFollowing(){
-        boolean followerCheck = userRepository.existsById(606);
-        boolean followingCheck = userRepository.existsById(608);
-        if((followerCheck == true) && (followingCheck == true)) {
-            followRepository.updateByFollowing(608,606);
-
-        }
-        else
-            fail("The user absent.");
+        User follower = new User("sevde","sevde@gmail.com","sevde..","Hi i am sevde");
+        userRepository.save(follower);
+        User following = new User("şeyda","şeyda@gmail.com","şeyda..","Hi i am şeyda");
+        userRepository.save(following);
+        Follow follow = new Follow(follower,following);
+        Follow updatedFollow = new Follow();
+        updatedFollow.setId(follow.getId());
+        updatedFollow.setFollowerUser(follow.getFollowingUser());
+        updatedFollow.setFollowingUser(follow.getFollowerUser());
+        updatedFollow.setUpdatedAt(follow.getUpdatedAt());
+        updatedFollow.setCreatedAt(follow.getCreatedAt());
+        updatedFollow.setDeleted(follow.isDeleted());
+        assertEquals(follow.getId(),updatedFollow.getId());
+        followRepository.save(updatedFollow);
     }
     @Test
     public void deleteById(){
-        boolean check = followRepository.existsById(2);
-        if(check == true){
-            followRepository.deleteById(true,2);
-        }
-        else
-            fail("There is no follow with this id.");
+        User follower = new User("kaylie","kaylie@gmail.com","kaylie..","Hi i am kaylie");
+        userRepository.save(follower);
+        User following = new User("jennier","jennier@gmail.com","jennier..","Hi i am jennier");
+        userRepository.save(following);
+        Follow follow = new Follow(follower,following);
+        followRepository.save(follow);
+        followRepository.deleteById(follow.getId());
+        Follow deletedFollow = followRepository.findById(follow.getId()).orElse(null);
+        assertNull(deletedFollow);
     }
     @Test
     public void getByFollowingUser(){
-        int count = followRepository.getByFollowingUser(2,false);
-        System.out.println(count);
+        User follower = new User("buseff","busffe@gmail.com","bufsef..","Hi i am buse");
+        userRepository.save(follower);
+        User following = new User("beriflf","beriffl@gmail.com","beffril..","Hi i am beril");
+        userRepository.save(following);
+        Follow follow = new Follow(follower,following);
+        followRepository.save(follow);
+        int count = followRepository.getByFollowingUser(follow.getFollowingUser().getId(),follow.getFollowingUser().isDeleted());
+        assertNotEquals(count,0);
     }
 
 }

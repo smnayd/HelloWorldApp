@@ -7,11 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,48 +23,60 @@ class LikeRepositoryTest {
 
     @Test
     public void saveLike(){
-        User user = userRepository.getById(100);
-        Post post = postRepository.getById(4);
-        if((user != null) && (post != null)){
-            Like like = new Like(user,post);
-            likeRepository.save(like);
-        }
-        else
-            fail("There is no user or post with this id.");
+        User user = new User("Kurtulus","kurtulus@gmail.com","kurtulus..","Hi, I am kurtulus");
+        userRepository.save(user);
+        Post post = new Post(user,"text","C:\\Users\\masaüstü\\text.txt");
+        postRepository.save(post);
+        Like like = new Like(user,post);
+        assertNotNull(like);
     }
     @Test
     public void updateById(){
-        boolean check = likeRepository.existsById(1);
-        if(check == true){
-            likeRepository.updateById(6,1);
-        }
-        else
-            fail("There is no such like id.");
+        User user = new User("Sueda","sueda@gmail.com","sueda..","Hi, I am sueda");
+        userRepository.save(user);
+        User user2 = new User("Cansel","cansell@gmail.com","cansell..","Hi, i am cansel");
+        userRepository.save(user2);
+        Post post = new Post(user,"text","C:\\Users\\masaüstü\\text.txt");
+        postRepository.save(post);
+        Like like = new Like(user,post);
+        likeRepository.save(like);
+        Like updatedLike = new Like();
+        updatedLike.setId(like.getId());
+        updatedLike.setCreatedAt(like.getCreatedAt());
+        updatedLike.setUser(user2);
+        updatedLike.setPost(like.getPost());
+        updatedLike.setDeleted(like.isDeleted());
+        assertEquals(like.getPost().getId(),updatedLike.getPost().getId());
+        likeRepository.save(updatedLike);
     }
     @Test
     public void deleteById(){
-        boolean check = likeRepository.existsById(2);
-        if(check == true){
-            likeRepository.deleteById(true,2);
-        }
-        else
-            fail("There is no like with this id");
+        User user = new User("Goktugg","goktugg@gmail.com","goktugg..","Hi, I am goktugg");
+        userRepository.save(user);
+        Post post = new Post(user,"text","C:\\Users\\blabla\\text.txt");
+        postRepository.save(post);
+        Like like = new Like(user,post);
+        likeRepository.save(like);
+        likeRepository.deleteById(like.getId());
+        Like likee = likeRepository.findById(like.getId()).orElse(null);
+        assertNull(likee);
     }
     @Test
     public void getByPostId(){
-        boolean check = postRepository.existsById(4);
-        if(check == true){
-            List<Like> likes = likeRepository.getByPostId(4);
-            System.out.println("likes: " + likes.toString());
-        }
-        else
-            fail("There is no post");
+        User user = new User("sevinc","sevinc@gmail.com","sevinc..","Hi, I am sevinc");
+        userRepository.save(user);
+        Post post = new Post(user,"video","C:\\Users\\masaüstü\\file.mp4");
+        postRepository.save(post);
+        Like like = new Like(user,post);
+        likeRepository.save(like);
+        List<Like> likes = likeRepository.getByPostId(like.getPost().getId());
+        assertNotNull(likes);
     }
     @Test
     public void getLikeByCreatedAt(){
         LocalDateTime time = LocalDateTime.now().minusDays(3);
         List<Post> likeList = (likeRepository.getLikeByCreatedAt(time));
-        System.out.println(likeList.get(0));
+        assertNotNull(likeList);
     }
 
 }

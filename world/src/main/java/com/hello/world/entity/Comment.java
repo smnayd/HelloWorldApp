@@ -77,6 +77,22 @@ public class Comment {
         isDeleted = deleted;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +

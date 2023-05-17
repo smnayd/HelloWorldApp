@@ -20,23 +20,25 @@ class ShareRepositoryTest {
 
     @Test
     public void saveShare(){
-        User user = userRepository.getById(1);
-        Post post = postRepository.getById(4);
-        if((user != null) && (post != null)){
-            Share share = new Share(user,post,"www.whatsapp.com");
-            shareRepository.save(share);
-        }
-        else
-            fail("There is no such user or post.");
+        User user = new User("mehmet","mehmet@gmail.com","mehmet..","Hi, i am mehmet");
+        userRepository.save(user);
+        Post post = new Post(user,"image","image.com");
+        postRepository.save(post);
+        Share share = new Share(user,post,"www.instagram.com");
+        shareRepository.save(share);
+        assertEquals("www.instagram.com",share.getUrl());
     }
     @Test
     public void deleteById(){
-        boolean check = shareRepository.existsById(1);
-        if(check == true){
-            shareRepository.deleteById(true,1);
-        }
-        else
-            fail("There is no share");
+        User user = new User("sema","sema@gmail.com","sema..","Hi, i am sema");
+        userRepository.save(user);
+        Post post = new Post(user,"image","image.com");
+        postRepository.save(post);
+        Share share = new Share(user,post,"www.whatsapp.com");
+        shareRepository.save(share);
+        shareRepository.deleteById(share.getId());
+        Share find = shareRepository.findById(share.getId()).orElse(null);
+        assertNull(find);
     }
 
 }

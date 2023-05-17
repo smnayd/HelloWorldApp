@@ -1,6 +1,8 @@
 package com.hello.world.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,20 +26,22 @@ public class User {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Post> posts;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Comment> comments;
-
     @OneToMany(mappedBy = "followerUser", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Follow> followers;
     @OneToMany(mappedBy = "followingUser", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Follow> followings;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Like> likes;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Share> shares;
 
     public User(){
@@ -134,6 +138,58 @@ public class User {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Follow> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<Follow> followers) {
+        this.followers = followers;
+    }
+
+    public List<Follow> getFollowings() {
+        return followings;
+    }
+
+    public void setFollowings(List<Follow> followings) {
+        this.followings = followings;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
+
+    public List<Share> getShares() {
+        return shares;
+    }
+
+    public void setShares(List<Share> shares) {
+        this.shares = shares;
     }
 
     @Override

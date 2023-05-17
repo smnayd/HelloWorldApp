@@ -14,48 +14,46 @@ class UserRepositoryTest {
 
     @Test
     public void saveUser(){
-        User user = new User("rabiayagci","rabiayagci@gmail.com","rabiaa","hi,i am rabia. whats up?");
+        User user = new User("kübra","kübra@gmail.com","kübra","hi,i am kübra. whats up?");
         userRepository.save(user);
+        User find = userRepository.findById(user.getId()).orElse(null);
+        assertNotNull(find);
     }
 
     @Test
     public void updateById(){
-        boolean check = userRepository.existsById(606);
-        if(check == true){
-           userRepository.updateById("saturn",606);
-        }
-        else
-            fail("There is no user with this id.");
+        User user = new User("zehra","zehra.@gmail.com","zehra","hii");
+        userRepository.save(user);
+        User updatedUser = new User();
+        updatedUser.setId(user.getId());
+        updatedUser.setUsername(user.getUsername());
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setPassword("zehra..");
+        updatedUser.setBio(user.getBio());
+        userRepository.save(updatedUser);
+        assertEquals(user.getEmail(),updatedUser.getEmail());
     }
 
     @Test
     public void deleteById(){
-        boolean check = userRepository.existsById(1);
-        if(check == true){
-            userRepository.deleteById(true,1);
-        }
-        else
-            fail("There is no user with this id.");
+        User user = new User("bulut","bulut.@gmail.com","bulut..","hii");
+        userRepository.save(user);
+        userRepository.deleteById(user.getId());
+        User find = userRepository.findById(user.getId()).orElse(null);
+        assertNull(find);
     }
     @Test
     public void getById(){
-        boolean check = userRepository.existsById(598);
-        if(check == true){
-            User user = userRepository.getById(598);
-            System.out.println(user);
-        }
-        else{
-            fail("There is no user with this id.");
-        }
+        User user = new User("yagmur","yagmur.@gmail.com","yagmur","hii");
+        userRepository.save(user);
+        User find = userRepository.getById(user.getId());
+        assertEquals(find.getId(),user.getId());
     }
     @Test
     public void findByUsername(){
-        boolean check = userRepository.existsByUsername("saturn");
-        if(check == true){
-            User user = userRepository.findByUsername("saturn");
-            System.out.println("User: " + user);
-        }
-        else
-            fail("User could not find");
+        User user = new User("ales","ales.@gmail.com","ales","hii");
+        userRepository.save(user);
+        User find = userRepository.findByUsername(user.getUsername());
+        assertEquals(find.getUsername(),user.getUsername());
     }
 }

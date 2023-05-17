@@ -66,6 +66,22 @@ public class Follow {
         isDeleted = deleted;
     }
 
+    public User getFollowerUser() {
+        return followerUser;
+    }
+
+    public void setFollowerUser(User followerUser) {
+        this.followerUser = followerUser;
+    }
+
+    public User getFollowingUser() {
+        return followingUser;
+    }
+
+    public void setFollowingUser(User followingUser) {
+        this.followingUser = followingUser;
+    }
+
     @Override
     public String toString() {
         return "Follow{" +
