@@ -20,16 +20,12 @@ public class UserServiceImpl implements UserService{
         return userRepository.save(user);
     }
     @Override
-    public User updateUserById(String username,int id){
-        User user = userRepository.getById(id);
-        user.setUsername(username);
-        return userRepository.save(user);
+    public void updateUserById(String username,int id){
+        userRepository.updateById(username,id);
     }
     @Override
-    public void deleteUserById(boolean isDeleted, int id){
-        User user = userRepository.getById(id);
-        user.setDeleted(isDeleted);
-        userRepository.save(user);
+    public void deleteUserById(int id){
+        userRepository.deleteById(id);
     }
     @Override
     public User getUserById(int id){

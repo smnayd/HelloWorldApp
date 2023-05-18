@@ -30,22 +30,21 @@ public class UserController {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUserById(@RequestBody Map<String, Object> request, @PathVariable("id") int id){
+    public ResponseEntity<Void> updateUserById(@RequestBody Map<String, Object> request, @PathVariable("id") int id){
         try{
             String username = (String) request.get("username");
-            User updatedUser = userService.updateUserById(username,id);
-            return new ResponseEntity<>(updatedUser,HttpStatus.OK);
+            userService.updateUserById(username,id);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception ex){
             ex.printStackTrace();
             return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteUserById(@RequestBody Map<String, Object> request, @PathVariable("id") int id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable("id") int id){
         try{
-            boolean isDeleted = (boolean) request.get("deleted");
-            userService.deleteUserById(isDeleted,id);
+            userService.deleteUserById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         catch(Exception ex){

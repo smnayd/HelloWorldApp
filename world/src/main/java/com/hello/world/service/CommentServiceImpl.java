@@ -19,16 +19,12 @@ public class CommentServiceImpl implements CommentService{
     public Comment createComment(Comment comment){
         return commentRepository.save(comment);
     }
-    public Comment updateCommentById(String comment, int id){
-        Comment updatedComment = commentRepository.findById(id).orElse(null);
-        updatedComment.setComment(comment);
-        return commentRepository.save(updatedComment);
+    public void updateCommentById(String comment, int id){
+        commentRepository.updateById(comment,id);
     }
     @Override
     public void deleteCommentById(int id){
-        Comment comment = commentRepository.findById(id).orElse(null);
-        comment.setDeleted(true);
-        commentRepository.save(comment);
+        commentRepository.deleteById(id);
     }
     @Override
     public List<Comment> getByPostId(int id){

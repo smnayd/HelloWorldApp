@@ -31,18 +31,18 @@ public class CommentController {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Comment> updateCommentById(@RequestBody Map<String, Object> request, @PathVariable("id") int id){
+    public ResponseEntity<Void> updateCommentById(@RequestBody Map<String, Object> request, @PathVariable("id") int id){
         try{
             String updateComment = (String)request.get("comment");
-            Comment comment = commentService.updateCommentById(updateComment,id);
-            return new ResponseEntity<>(comment,HttpStatus.OK);
+            commentService.updateCommentById(updateComment,id);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception ex){
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCommentById(@PathVariable("id") int id){
         try{
             commentService.deleteCommentById(id);
@@ -72,7 +72,7 @@ public class CommentController {
         }
         catch (Exception ex){
             ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -27,8 +27,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     //Delete
     @Modifying
     @Transactional
-    @Query("update User u set u.isDeleted = :isDeleted where u.id = :id")
-    void deleteById(@Param("isDeleted") boolean isDeleted,@Param("id") int id);
+    @Query("update User u set u.isDeleted = true where u.id = :id")
+    void deleteById(@Param("id") int id);
 
     //Get user by Id
     @Query("select u from User u where u.id = :id")
