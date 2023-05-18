@@ -20,13 +20,13 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
     @Modifying
     @Transactional
     @Query("update Comment c set c.comment = :comment where c.id = :id")
-    void updateById(@Param("comment")String comment, @Param("id") int id);
+    Comment updateById(@Param("comment")String comment, @Param("id") int id);
 
     //Delete
-    @Modifying
+   /* @Modifying
     @Transactional
     @Query("update Comment c set c.isDeleted=:isDeleted where c.id = :id ")
-    void deleteById(@Param("isDeleted") boolean isDeleted, @Param("id")int id);
+    void deleteById(@Param("isDeleted") boolean isDeleted, @Param("id")int id);*/
 
     //Get by post id
     @Query("select c from Comment c where c.post.id = :id")
