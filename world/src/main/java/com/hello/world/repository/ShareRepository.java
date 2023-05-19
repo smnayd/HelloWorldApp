@@ -18,6 +18,6 @@ public interface ShareRepository extends JpaRepository<Share,Integer> {
     //Delete
     @Modifying
     @Transactional
-    @Query("update Share s set s.isDeleted = :isDeleted where s.id = :id")
-    void deleteById(@Param("isDeleted")boolean isDeleted, @Param("id")int id);
+    @Query("update Share s set s.isDeleted = true where s.id = :id")
+    void deleteById(@Param("id")int id);
 }
