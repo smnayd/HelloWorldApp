@@ -1,6 +1,7 @@
 package com.hello.world.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,8 +12,8 @@ public class Comment {
     private int id;
     @Column(nullable = false)
     private String comment;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
     private boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -35,7 +36,7 @@ public class Comment {
         this.user = user;
         this.post = post;
         this.comment = comment;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDate.now();
     }
 
     public int getId() {
@@ -53,19 +54,19 @@ public class Comment {
         this.comment = comment;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 

@@ -3,6 +3,7 @@ package com.hello.world.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class Post {
     private String type;
     @Column(nullable = false)
     private String file;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
     private boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -43,7 +44,7 @@ public class Post {
         this.user = user;
         this.type = type;
         this.file = file;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDate.now();
     }
     public int getId() {
         return id;
@@ -70,19 +71,19 @@ public class Post {
         this.file = file;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 

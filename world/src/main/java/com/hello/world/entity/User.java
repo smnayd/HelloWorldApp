@@ -4,7 +4,7 @@ package com.hello.world.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -22,8 +22,8 @@ public class User {
     private String bio;
     private byte[]  photo;
     private boolean isDeleted;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JsonIgnore
@@ -51,14 +51,14 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDate.now();
     }
     public User(String username, String email, String password,String bio){
         this.username = username;
         this.email = email;
         this.password = password;
         this.bio = bio;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDate.now();
     }
     public User(String username, String email, String password,String bio,byte[] photo){
         this.username = username;
@@ -66,7 +66,7 @@ public class User {
         this.password = password;
         this.bio = bio;
         this.photo = photo;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDate.now();
     }
     public int getId() {
         return id;
@@ -116,19 +116,19 @@ public class User {
         this.photo = photo;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 
